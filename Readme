@@ -1,0 +1,13 @@
+# 開機程式
+設定虛擬環境，將ＯＳ載入到記憶體
+# process control
+## process creation
+## process deletion
+#memory management
+#I/O device
+
+#lib of the kernel
+##kernel_structure
+### min-heap
+### red-black tree
+### single linked list
