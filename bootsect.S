@@ -19,7 +19,7 @@ start2:
     movw $0x01301, %ax
     movw $0x0c, %bx
     movw $12, %cx
-    movb $0, %d1
+    movb $0, %dl
     int $0x010
 
 loop:
