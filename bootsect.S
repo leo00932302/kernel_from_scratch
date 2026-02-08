@@ -1,2 +1,33 @@
+BOOTSEG = 0x7c0
 
-bootsect.S
+.code16
+.text
+
+.global_start
+_start:
+    jmpl $BOOTSEG , $start2
+
+start2:
+    movw $BOOTSEG, %ax
+    movw %ax, %ds
+    movw %ax, %es
+    movw %ax, %fs
+    movw %ax, %gs
+
+    movw $msg, %ax
+    movw %ax, %bp
+    movw $0x01301, %ax
+    movw $0x0c, %bx
+    movw $12, %cx
+    movb $0, %d1
+    int $0x010
+
+loop:
+    jmp loop 
+
+msg:
+.ascii "Hello world!"
+
+.org 510
+boot_flag:
+    .word 0xaa55
