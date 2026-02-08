@@ -3,7 +3,7 @@ BOOTSEG = 0x7c0
 .code16
 .text
 
-.global_start
+.global _start
 _start:
     jmpl $BOOTSEG , $start2
 
