@@ -2,7 +2,7 @@
 # CC = gcc
 # FLAGS = -Wall -Wextra
 
-assembly : bootsect.S
+linux.img : bootsect.S
 	as -o bootsect.o bootsect.S
 	ld -m elf_x86_64 Ttext 0x0 -s --oformat binary -o linux.img bootsect.o
 
