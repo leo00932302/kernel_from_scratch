@@ -1,5 +1,5 @@
-.code32      // 32-bit code
-.text       // code section   
+.code32      
+.text          
 .globl start_32
 start_32:
     movl $0x18, %eax
