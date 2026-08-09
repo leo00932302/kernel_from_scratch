@@ -3,7 +3,7 @@ FLAGS = -Wall -Wextra
 
 linux.img : bootsect.S head.o
 # 	as -o bootsect.o bootsect.S
-	ld -m elf_x86_64 Ttext 0x0 -s --oformat binary -o linux.img bootsect.o head.o
+	ld -m elf_x86_64 -Ttext 0x0 -s --oformat binary -o linux.img bootsect.o head.o
 
 main.o : main.c
 	$(CC) $(FLAGS) -c main.c -o main.o
