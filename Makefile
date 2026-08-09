@@ -11,6 +11,8 @@ head.o : head.S
 	as -o head.o head.S
 boot.o : boot.S
 	as -o boot.o boot.S
+setup.o : setup.S
+	as -o setup.o setup.S
 
 #build and test the linux.img in QEMU	
 QEMU := $(shell which qemu-system-i386) #find qemu-system-i386 in the system path
