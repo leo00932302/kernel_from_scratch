@@ -50,7 +50,7 @@ load_setup:
  jnc ok_load_setup
  movw $0x0000, %dx
  movw $0x0000, %ax
- int $x013
+ int $0x13
  jmp load_setup
 
 .org 510
