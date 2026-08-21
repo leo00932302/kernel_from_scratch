@@ -15,23 +15,23 @@ CCFLAG = -m32 \
          -c
 LDFLAG = -Ttext 0x0 -s --oformat binary -m elf_i386
 
-linux.img : tools/build bootsect setup kernel/system
-# 	as -o bootsect.o bootsect.S
-	ld -m $(LDFLAG) -o linux.img bootsect.o head.o
-
-main.o : main.c
-	$(CC) $(CCFLAG) -c main.c -o main.o
+linux.img: tools/build bootsect setup kernel/system
+	./tools/build bootsect setup kernel/system > $@
+bootsect : bootsect.o
+	$(LD) $(LDFLAG) -o $@ $<
+# main.o : main.c
+# 	$(CC) $(CCFLAG) -c main.c -o main.o
 bootsect.o : bootsect.S
 	$(AS) -o bootsect.o bootsect.S
-boot.o : boot.S
-	as -o boot.o boot.S
 setup.o : setup.S
-	as -o setup.o setup.S
+	$(AS) -o setup.o setup.S
+setup : setup.o
+	$(LD) $(LDFLAG) -e _start_setup -o $@ $<
 tools/build : tools/build.c
-	$(CC) $(CCFLAG) -o $@ $<
+	gcc -o $@ $<
 kernel/system :
 	cd kernel;make system;cd ..
-	
+
 #build and test the linux.img in QEMU	
 QEMU := $(shell which qemu-system-i386) #find qemu-system-i386 in the system path
 test:                                   #test target to run the generated linux.img in QEMU
@@ -39,4 +39,4 @@ test:                                   #test target to run the generated linux.
 	$(QEMU) -boot a -drive file=linux.img,format=raw,if=floppy -display curses
 .PHONY: clean
 clean :
-	rm -f *.o linux.img
+	rm -f *.o linux.img setup bootsect tools/build *.o
